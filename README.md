@@ -4,6 +4,8 @@
 
 ESTA is a command-line tool for processing raw emissions data into spatially and temporally-allocated emissions inventories, suitable for photochemicaly modeling or other analysis.
 
+> NOTE: The official version of this repo has been moved to the fork in the [mmb-carb](https://github.com/mmb-carb/ESTA_Documentation) organization.
+
 
 ## ESTA Documentation
 
