@@ -19,7 +19,7 @@ ESTA is a Python-based model. It is designed as a stand-alone program, not as an
 
 ## Installation
 
-ESTA is designed to run on any major operating system using Python 2.7.x.  It requires a number of potential third-party libraries, depending on which modules you want to run.  For a list of these dependencies and their versions, the ESTA main folder includes a Python-standard `requirements.txt` file.
+ESTA is designed to run on any major operating system using Python 2.7.x.  It may require a number of potential third-party libraries, depending on which modules you want to run.  For a list of these dependencies and their versions, the ESTA main folder includes a Python-standard `requirements.txt` file.
 
 ## Design Goals
 
@@ -69,6 +69,7 @@ Here is a basic diagram of ESTA's code structure, including some default on-road
          │              sparce_emissions.py
          │
          ├─── output/cmaqnetcdfwriter.py
+         │           csewriter.py
          │           pmeds1writer.py
          │
          ├─── scaling/emfac2cmaqscaler.py
@@ -111,9 +112,12 @@ Corresponding to each of the five major gridding steps, there is a section in th
     [Output] --> src.output
     [Testing] --> src.testing
 
+
 ### The Core
 
-As seen above, the ESTA code base has modules for each of the ESTA gridding steps, but the classes in these modules are simply subclasses of those in the core. So to understand the function of ESTA, you only need to understand the core. The rest are implementation details specific to the science involved. The easiest file to understand is `version.py`, which sets the current version of ESTA, that is printed to the screen at the beginning of each run. Each step in the gridding process is represented in ESTA by an abstract class in `src.core`:
+As seen above, the ESTA code base has modules for each of the ESTA gridding steps, but the classes in these modules are simply subclasses of those in the core. So to understand how ESTA functions, you only need to understand the core. The rest are implementation details specific to the science involved. The easiest file to understand is `version.py`, which sets the current version of ESTA, that is printed to the screen at the beginning of each run.
+
+Each step in the gridding process is represented in ESTA by an abstract class in `src.core`:
 
  * **emissions loading** --> `EmissionsLoader`
  * **spatial surrogate loading** --> `SpatialLoader`
@@ -123,6 +127,7 @@ As seen above, the ESTA code base has modules for each of the ESTA gridding step
  * **QA/QC** --> `OutputTester`
 
 Notice that in the config file there is a single major section for `[Surrogates]`, but under the hood there are separate abstract classes for spatial surrogates and temporal surrogates. This was a design choice to leave open the option that a single file might represent the spatial and temporal distribution of the emissions, so they would have to be loaded by the same class.
+
 
 ### ESTA Data Structures
 
